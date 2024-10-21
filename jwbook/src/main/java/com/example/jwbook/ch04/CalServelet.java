@@ -39,5 +39,12 @@ public class CalServelet extends HttpServlet {
     }
 
     resp.getWriter().println(result);
+
+
+    // 같은 /cal 주소인데 calResult.jsp 화면이 표시됨
+    // 아래 코드가 없었으면 위에 41행(println) 부분이 표시됨
+    // 하지만 주소는 /cal 로 같음 = 이게 forward!
+    req.setAttribute("result", result);
+    req.getRequestDispatcher("calResult.jsp").forward(req, resp);
   }
 }
