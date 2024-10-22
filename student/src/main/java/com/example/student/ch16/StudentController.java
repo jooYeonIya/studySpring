@@ -48,6 +48,15 @@ public class StudentController extends HttpServlet {
           }
           break;
 
+        case "info":
+          view = info(req, resp);
+
+        case "update":
+          view = update(req, resp);
+
+        case "delete":
+          view = delete(req, resp);
+
         case "insert":
           try {
             view = insert(req, resp);
@@ -63,6 +72,18 @@ public class StudentController extends HttpServlet {
           break;
       }
     }
+  }
+
+  public String info(HttpServletRequest req, HttpServletResponse resp) {
+    return "";
+  }
+
+  public String update(HttpServletRequest req, HttpServletResponse resp) {
+    return "";
+  }
+
+  public String delete(HttpServletRequest req, HttpServletResponse resp) {
+    return "";
   }
 
   public String list(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
