@@ -16,7 +16,7 @@
         </tr>
         <c:forEach var="p" varStatus="i" items="${products}">
             <td>${i.count}</td>
-            <td>${p.name}</td>
+            <td><a href="/products?action=info&id=${p.id}">${p.name}</a></td>
             <td>${p.price}</td>
         </c:forEach>
         <tr>
