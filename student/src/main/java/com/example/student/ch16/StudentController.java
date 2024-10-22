@@ -58,7 +58,12 @@ public class StudentController extends HttpServlet {
           break;
 
         case "update":
-          view = update(req, resp);
+          try {
+            view = update(req, resp);
+            resp.sendRedirect(view);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
           break;
 
         case "delete":
@@ -94,8 +99,13 @@ public class StudentController extends HttpServlet {
     return "studentInfo.jsp";
   }
 
-  public String update(HttpServletRequest req, HttpServletResponse resp) {
-    return "";
+  public String update(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    Student s = new Student(
+        Integer.parseInt(req.getParameter("id")),
+        req.getParameter("univ"),
+        req.getParameter("email"));
+    service.update(s);
+    return "/students?action=list";
   }
 
   public String delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException {

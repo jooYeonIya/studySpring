@@ -28,4 +28,10 @@ public class Student {
     this.email = email;
     this.birth = birth;
   }
+
+  public Student(int id, String univ, String email) {
+    this.id = id;
+    this.univ = univ;
+    this.email = email;
+  }
 }

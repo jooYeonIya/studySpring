@@ -88,4 +88,13 @@ public class StudentDAO {
     pstmt.setString(1, id);
     pstmt.executeUpdate();
   }
+
+  public void update(Student s) throws SQLException {
+    String sql = "update student set univ=?, email=? where id=?";
+    pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, s.getUniv());
+    pstmt.setString(2, s.getEmail());
+    pstmt.setInt(3, s.getId());
+    pstmt.executeUpdate();
+  }
 }

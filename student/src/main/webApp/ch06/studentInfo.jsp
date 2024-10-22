@@ -8,22 +8,14 @@
 </head>
 <body>
 학생 1인 조회
-<table>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>birth</th>
-        <th>univ</th>
-        <th>email</th>
-    </tr>
-    <tr>
-        <td>${student.id}</td>
-        <td>${student.name}</td>
-        <td>${student.birth}</td>
-        <td>${student.univ}</td>
-        <td>${student.email}</td>
-    </tr>
-</table>
+    <form action="/students?action=update" method="post">
+        <input type="hidden" name="id" value="${student.id}">
+        이름<input type="text" name="name" value="${student.name}">
+        학교<input type="text" name="univ" value="${student.univ}">
+        메일<input type="text" name="email" value="${student.email}">
+        생일<input type="date" name="birth" value="${student.birth}">
+        <input type="submit" value="수정">
+    </form>
 <a href="/students?action=delete&id=${student.id}">삭제</a>
 </body>
 </html>
