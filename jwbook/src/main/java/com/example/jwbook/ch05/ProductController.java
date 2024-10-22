@@ -19,15 +19,19 @@ public class ProductController extends HttpServlet {
     String action = req.getParameter("action");
     String path = "/ch05/";
 
-    if (action.equals("list")) {
-      List<Product> products = ps.findAllProduct();
-      req.setAttribute("products", products);
-      req.getRequestDispatcher(path + "productList.jsp").forward(req, resp);
-    } else if (action.equals("info")) {
-      Long id = Long.parseLong(req.getParameter("id"));
-      Product p = ps.findById(id);
-      req.setAttribute("product", p);
-      req.getRequestDispatcher(path + "productInfo.jsp").forward(req, resp);
+    if (action == null) {
+      resp.sendRedirect("/products?action=list");
+    } else {
+      if (action.equals("list")) {
+        List<Product> products = ps.findAllProduct();
+        req.setAttribute("products", products);
+        req.getRequestDispatcher(path + "productList.jsp").forward(req, resp);
+      } else if (action.equals("info")) {
+        Long id = Long.parseLong(req.getParameter("id"));
+        Product p = ps.findById(id);
+        req.setAttribute("product", p);
+        req.getRequestDispatcher(path + "productInfo.jsp").forward(req, resp);
+      }
     }
   }
 }
