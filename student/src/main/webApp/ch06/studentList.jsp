@@ -8,6 +8,7 @@
   <title>Title</title>
 </head>
 <body>
+<a href="/students?action=insert">추가</a>
 학생 정보 조회
 <table>
     <tr>
