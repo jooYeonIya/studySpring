@@ -49,13 +49,21 @@ public class StudentController extends HttpServlet {
           break;
 
         case "info":
-          view = info(req, resp);
+          try {
+            view = info(req, resp);
+            req.getRequestDispatcher(path + view).forward(req, resp);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
+          break;
 
         case "update":
           view = update(req, resp);
+          break;
 
         case "delete":
           view = delete(req, resp);
+          break;
 
         case "insert":
           try {
@@ -74,8 +82,11 @@ public class StudentController extends HttpServlet {
     }
   }
 
-  public String info(HttpServletRequest req, HttpServletResponse resp) {
-    return "";
+  public String info(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    String id = req.getParameter("id");
+    Student s = service.findById(id);
+    req.setAttribute("student", s);
+    return "studentInfo.jsp";
   }
 
   public String update(HttpServletRequest req, HttpServletResponse resp) {

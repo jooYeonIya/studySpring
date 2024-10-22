@@ -61,4 +61,24 @@ public class StudentDAO {
 
     return students;
   }
+
+  public Student findById(String id) throws SQLException {
+    String sql = "select * from student where id = ?";
+    pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, id);
+    ResultSet resultSet = pstmt.executeQuery();
+
+    if (resultSet.next()) {
+      Student s = new Student(
+          resultSet.getInt("id"),
+          resultSet.getString("name"),
+          resultSet.getString("univ"),
+          resultSet.getString("email"),
+          resultSet.getDate("birth")
+      );
+      return s;
+    } else {
+      return null;
+    }
+  }
 }

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
   <title>Title</title>
 </head>
 <body>
-학생 정보 조회
+학생 1인 조회
 <table>
     <tr>
         <th>id</th>
@@ -17,15 +16,12 @@
         <th>univ</th>
         <th>email</th>
     </tr>
-    <c:forEach var="s" varStatus="i" items="${students}">
     <tr>
-        <td>${s.id}</td>
-        <td><a href="/students?action=info&id=${s.id}">${s.name}</a></td>
-        <td>${s.birth}</td>
-        <td>${s.univ}</td>
-        <td>${s.email}</td>
+        <td>${student.id}</td>
+        <td>${student.name}</td>
+        <td>${student.birth}</td>
+        <td>${student.univ}</td>
+        <td>${student.email}</td>
     </tr>
-    </c:forEach>
-</table>
 </body>
 </html>
