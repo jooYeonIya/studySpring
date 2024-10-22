@@ -17,7 +17,6 @@ public class ProductController extends HttpServlet {
   @Override
   protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     String action = req.getParameter("action");
-    String view = "";
     String path = "/ch05/";
 
     if (action.equals("list")) {
@@ -25,6 +24,9 @@ public class ProductController extends HttpServlet {
       req.setAttribute("products", products);
       req.getRequestDispatcher(path + "productList.jsp").forward(req, resp);
     } else if (action.equals("info")) {
+      Long id = Long.parseLong(req.getParameter("id"));
+      Product p = ps.findById(id);
+      req.setAttribute("product", p);
       req.getRequestDispatcher(path + "productInfo.jsp").forward(req, resp);
     }
   }
