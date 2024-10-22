@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,5 +23,7 @@
         <td>${student.univ}</td>
         <td>${student.email}</td>
     </tr>
+</table>
+<a href="/students?action=delete&id=${student.id}">삭제</a>
 </body>
 </html>

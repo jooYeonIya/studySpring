@@ -81,4 +81,11 @@ public class StudentDAO {
       return null;
     }
   }
+
+  public void delete(String id) throws SQLException {
+    String sql = "delete from student where id = ?";
+    pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, id);
+    pstmt.executeUpdate();
+  }
 }

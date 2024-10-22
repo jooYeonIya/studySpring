@@ -62,7 +62,12 @@ public class StudentController extends HttpServlet {
           break;
 
         case "delete":
-          view = delete(req, resp);
+          try {
+            view = delete(req, resp);
+            resp.sendRedirect(view);
+          } catch (SQLException e) {
+            throw new RuntimeException(e);
+          }
           break;
 
         case "insert":
@@ -93,8 +98,9 @@ public class StudentController extends HttpServlet {
     return "";
   }
 
-  public String delete(HttpServletRequest req, HttpServletResponse resp) {
-    return "";
+  public String delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    service.delete(req.getParameter("id"));
+    return "/students?action=list";
   }
 
   public String list(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
