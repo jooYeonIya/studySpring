@@ -1,9 +1,8 @@
 package com.example.jjStore;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAO {
   final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -45,5 +44,24 @@ public class ProductDAO {
     } else {
       System.out.println("error");
     }
+  }
+
+  public List<Product> findAll() throws SQLException {
+    String sql = "select * from products";
+    pstmt = conn.prepareStatement(sql);
+    List<Product> products = new ArrayList<>();
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      Product product = new Product(
+          resultSet.getInt("id"),
+          resultSet.getString("name"),
+          resultSet.getInt("price"),
+          resultSet.getString("maker"),
+          resultSet.getInt("stock")
+      );
+      
+      products.add(product);
+    }
+    return products;
   }
 }

@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/products")
 public class ProductController extends HttpServlet {
@@ -57,11 +58,6 @@ public class ProductController extends HttpServlet {
       throw new RuntimeException(e);
     }
   }
-
-  public String list(HttpServletRequest req, HttpServletResponse resp) {
-    return "/productsList.jsp";
-  }
-
   public String insert(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
     String method = req.getMethod();
 
@@ -77,5 +73,11 @@ public class ProductController extends HttpServlet {
     } else {
       return "/productsInsert.jsp";
     }
+  }
+
+  public String list(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    List<Product> products = service.findAll();
+    req.setAttribute("products", products);
+    return "/productsList.jsp";
   }
 }

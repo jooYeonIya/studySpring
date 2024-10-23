@@ -15,10 +15,12 @@
             <th>상품 이름</th>
             <th>상품 가격</th>
         </tr>
+        <c:forEach var="product" varStatus="i" items="${products}">
         <tr>
-            <td>상품 이름</td>
-            <td>상품 가격</td>
+            <td>${product.name}</td>
+            <td>${product.price}</td>
         </tr>
+        </c:forEach>
     </table>
 </body>
 </html>
