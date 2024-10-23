@@ -59,9 +59,30 @@ public class ProductDAO {
           resultSet.getString("maker"),
           resultSet.getInt("stock")
       );
-      
+
       products.add(product);
     }
     return products;
+  }
+
+  public Product findById(String id) throws SQLException {
+    String sql = "select * from products where id = ?";
+    pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, id);
+    ResultSet resultSet = pstmt.executeQuery();
+
+    while (resultSet.next()) {
+      Product product = new Product(
+          resultSet.getInt("id"),
+          resultSet.getString("name"),
+          resultSet.getInt("price"),
+          resultSet.getString("maker"),
+          resultSet.getInt("stock")
+      );
+
+      return product;
+    }
+
+    return null;
   }
 }

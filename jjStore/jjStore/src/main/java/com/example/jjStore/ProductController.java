@@ -51,6 +51,8 @@ public class ProductController extends HttpServlet {
           req.getRequestDispatcher(view).forward(req, resp);
           break;
         case "info":
+          view = info(req, resp);
+          req.getRequestDispatcher(view).forward(req, resp);
         case "update":
         case "delete":
       }
@@ -79,5 +81,12 @@ public class ProductController extends HttpServlet {
     List<Product> products = service.findAll();
     req.setAttribute("products", products);
     return "/productsList.jsp";
+  }
+
+  public String info(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    String id = req.getParameter("id");
+    Product product = service.findById(id);
+    req.setAttribute("product", product);
+    return "/productsInfo.jsp";
   }
 }

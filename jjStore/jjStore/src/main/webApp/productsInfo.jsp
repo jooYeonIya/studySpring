@@ -17,11 +17,11 @@
                 <th>상품 재고량</th>
             </tr>
             <tr>
-                <td>상품 ID</td>
-                <td>상품 이름</td>
-                <td>상품 가격</td>
-                <td>상품 제조사</td>
-                <td>상품 재고량</td>
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.price}</td>
+                <td>${product.maker}</td>
+                <td>${product.stock}</td>
             </tr>
         </table>
 </body>
