@@ -88,10 +88,17 @@ public class ProductDAO {
 
   public void update(int id, String name, int price) throws SQLException {
     String sql = "update products set name = ?, price = ? where id = ?";
-    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt = conn.prepareStatement(sql);
     pstmt.setString(1, name);
     pstmt.setInt(2, price);
     pstmt.setInt(3, id);
+    pstmt.executeUpdate();
+  }
+
+  public void delete(int id) throws SQLException {
+    String sql = "delete from products where id = ?";
+    pstmt = conn.prepareStatement(sql);
+    pstmt.setInt(1, id);
     pstmt.executeUpdate();
   }
 }

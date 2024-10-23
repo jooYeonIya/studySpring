@@ -55,13 +55,15 @@ public class ProductController extends HttpServlet {
           req.getRequestDispatcher(view).forward(req, resp);
         case "update":
           view = update(req, resp);
-          
+
           if (method.equals("POST")) {
             resp.sendRedirect(view);
           } else {
             req.getRequestDispatcher(view).forward(req, resp);
           }
         case "delete":
+          view = delete(req, resp);
+          req.getRequestDispatcher(view).forward(req, resp);
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
@@ -115,5 +117,11 @@ public class ProductController extends HttpServlet {
       req.setAttribute("product", product);
       return "/productsUpdate.jsp";
     }
+  }
+
+  public String delete(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    int id = Integer.parseInt(req.getParameter("id"));
+    service.delete(id);
+    return "/products?action=list";
   }
 }

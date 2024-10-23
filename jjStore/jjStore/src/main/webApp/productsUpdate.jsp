@@ -16,6 +16,6 @@
         상품 재고량<input type="text" name="stock" value="${product.stock}" disabled>
         <input type="submit" value="수정">
     </form>
-    <button>삭제</button>
+    <button onclick="window.location.href='/products?action=delete&id=${product.id}'">삭제</button>
 </body>
 </html>
