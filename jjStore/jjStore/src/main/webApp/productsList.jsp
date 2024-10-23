@@ -9,6 +9,7 @@
 </head>
 <body>
     <h2>상품 목록</h2>
+    <a href="/products?action=insert">상품 등록하기</a>
     <table>
         <tr>
             <th>상품 이름</th>

@@ -19,4 +19,11 @@ public class Product {
     this.maker = maker;
     this.stock = stock;
   }
+
+  public Product( String name, int price, String maker, int stock) {
+    this.name = name;
+    this.price = price;
+    this.maker = maker;
+    this.stock = stock;
+  }
 }
