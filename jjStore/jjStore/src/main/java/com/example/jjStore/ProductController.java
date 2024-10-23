@@ -55,6 +55,7 @@ public class ProductController extends HttpServlet {
           req.getRequestDispatcher(view).forward(req, resp);
         case "update":
           view = update(req, resp);
+          
           if (method.equals("POST")) {
             resp.sendRedirect(view);
           } else {
@@ -101,6 +102,12 @@ public class ProductController extends HttpServlet {
     String method = req.getMethod();
 
     if (method.equals("POST")) {
+      int id = Integer.parseInt(req.getParameter("id"));
+      int price = Integer.parseInt(req.getParameter("price"));
+      String name = req.getParameter("name");
+
+      service.update(id, name, price);
+
       return "/products?action=list";
     } else {
       String id = req.getParameter("id");
