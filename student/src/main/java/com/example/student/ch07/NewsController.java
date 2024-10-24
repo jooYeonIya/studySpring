@@ -46,6 +46,13 @@ public class NewsController extends HttpServlet {
           view = info(req, resp);
           context.getRequestDispatcher(path + view).forward(req, resp);
           break;
+
+        case "create":
+          view = create(req, resp);
+          if (view.startsWith("redirect")) {
+            resp.sendRedirect(view.substring(10));
+          }
+          break;
       }
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -62,5 +69,15 @@ public class NewsController extends HttpServlet {
     News news = service.findByAid(aid);
     req.setAttribute("news", news);
     return "newsInfo.jsp";
+  }
+
+  public String create(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    News news = new News(
+        req.getParameter("title"),
+        req.getParameter("img"),
+        req.getParameter("content")
+    );
+    service.addNews(news);
+    return "redirect:/news?action=list";
   }
 }

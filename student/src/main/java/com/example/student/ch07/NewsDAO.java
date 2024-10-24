@@ -60,10 +60,9 @@ public class NewsDAO {
   }
 
   public News findByAid(String aid) throws SQLException {
-
-
     getConn();
-    String sql = "select aid, title, img, content, date_format(date, '%Y-%m-%d %h:%m:%s') as cdate from news where aid = ?";    ps = conn.prepareStatement(sql);
+    String sql = "select aid, title, img, content, date_format(date, '%Y-%m-%d %h:%m:%s') as cdate from news where aid = ?";
+    ps = conn.prepareStatement(sql);
     ps.setString(1, aid);
     ResultSet resultSet = ps.executeQuery();
     while (resultSet.next()) {
@@ -79,5 +78,16 @@ public class NewsDAO {
     }
 
     return null;
+  }
+
+  public void addNews(News news) throws SQLException {
+    getConn();
+    String sql = "insert into news(title, img, content, date) values(?, ?, ?, CURRENT_TIMESTAMP())";
+    ps = conn.prepareStatement(sql);
+    ps.setString(1, news.getTitle());
+    ps.setString(2, news.getImg());
+    ps.setString(3, news.getContent());
+    ps.executeUpdate();
+    ps.close();
   }
 }
