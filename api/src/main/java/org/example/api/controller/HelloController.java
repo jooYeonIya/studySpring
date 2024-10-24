@@ -2,7 +2,6 @@ package org.example.api.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-
 //@RestController 만 쓰면   @ResponseBody + @Controller 와 같은 효과
 @RestController
 @RequestMapping("/hello")
@@ -25,14 +24,30 @@ public class HelloController {
     return "hello get path" + msg;
   }
 
+//  @PostMapping
+//  public String hello2() {
+//    return "hello post";
+//  }
+
+//  @PostMapping
+//  public String hello2(@RequestParam String name, @RequestParam int age) {
+//    return "hello post " + name + " " + age;
+//  }
+
+  // 포스트맨에서 json을 써서 ModelAttribute 매핑은 되지 않는다
   @PostMapping
-  public String hello2() {
-    return "hello post";
+  public String hello2(@RequestBody Person person) {
+    return "hello post " + person.getName() + " " + person.getAge();
   }
 
+//  @PutMapping
+//  public String hello3() {
+//    return "hello put";
+//  }
+
   @PutMapping
-  public String hello3() {
-    return "hello put";
+  public String hello(@ModelAttribute Person person) {
+    return "hello post " + person.getName() + " " + person.getAge();
   }
 
   @PatchMapping
