@@ -16,13 +16,13 @@ public class EncodingFilter implements Filter {
     // 다운 캐스팅 필요
     HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-    if (true) { // 로그인 하지 않은 상황이라고 가정해보자
-      log.info("로그인 안 함");
-
-    } else {
+//    if (true) { // 로그인 하지 않은 상황이라고 가정해보자
+//      log.info("로그인 안 함");
+//
+//    } else {
       request.setCharacterEncoding("UTF-8");
       log.info("getCharacterEncoding {}", request.getCharacterEncoding());
       filterChain.doFilter(servletRequest, servletResponse);
-    }
+//    }
   }
 }
