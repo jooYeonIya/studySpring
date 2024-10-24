@@ -53,6 +53,7 @@ public class ProductController extends HttpServlet {
         case "info":
           view = info(req, resp);
           req.getRequestDispatcher(view).forward(req, resp);
+          break;
         case "update":
           view = update(req, resp);
 
@@ -61,9 +62,12 @@ public class ProductController extends HttpServlet {
           } else {
             req.getRequestDispatcher(view).forward(req, resp);
           }
+          break;
+
         case "delete":
           view = delete(req, resp);
           req.getRequestDispatcher(view).forward(req, resp);
+          break;
       }
     } catch (SQLException e) {
       throw new RuntimeException(e);
