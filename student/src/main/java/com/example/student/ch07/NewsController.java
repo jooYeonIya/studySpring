@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/news")
 public class NewsController extends HttpServlet {
@@ -40,6 +41,11 @@ public class NewsController extends HttpServlet {
           view = list(req, resp);
           context.getRequestDispatcher(path + view).forward(req, resp);
           break;
+
+        case "info":
+          view = info(req, resp);
+          context.getRequestDispatcher(path + view).forward(req, resp);
+          break;
       }
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -49,5 +55,12 @@ public class NewsController extends HttpServlet {
   public String list(HttpServletRequest req, HttpServletResponse resp) {
     req.setAttribute("newsList", service.findAll());
     return "newsList.jsp";
+  }
+
+  public String info(HttpServletRequest req, HttpServletResponse resp) throws SQLException {
+    String aid = req.getParameter("aid");
+    News news = service.findByAid(aid);
+    req.setAttribute("news", news);
+    return "newsInfo.jsp";
   }
 }

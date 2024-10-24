@@ -1,10 +1,12 @@
 package com.example.student.ch07;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
-@Setter
+// getter, setter, toString 등 다 들어가는 어노테이션!
+@Data
 public class News {
   private int aid;
   private String title;

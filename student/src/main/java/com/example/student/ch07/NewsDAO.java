@@ -58,4 +58,26 @@ public class NewsDAO {
 
     return newsList;
   }
+
+  public News findByAid(String aid) throws SQLException {
+
+
+    getConn();
+    String sql = "select aid, title, img, content, date_format(date, '%Y-%m-%d %h:%m:%s') as cdate from news where aid = ?";    ps = conn.prepareStatement(sql);
+    ps.setString(1, aid);
+    ResultSet resultSet = ps.executeQuery();
+    while (resultSet.next()) {
+      News news = new News(
+          resultSet.getInt(1),
+          resultSet.getString(2),
+          resultSet.getString(3),
+          resultSet.getString(4),
+          resultSet.getString(5)
+      );
+
+      return news;
+    }
+
+    return null;
+  }
 }

@@ -12,7 +12,7 @@
 <c:forEach var="news" varStatus="i" items="${newsList}">
 <ul>
     <li>${i.count}</li>
-    <li><a href="/news?action=view&aid=${news.aid}">${news.title}</a></li>
+    <li><a href="/news?action=info&aid=${news.aid}">${news.title}</a></li>
     <li>${news.date}</li>
 </ul>
 </c:forEach>
