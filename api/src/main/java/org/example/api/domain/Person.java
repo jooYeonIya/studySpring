@@ -1,4 +1,4 @@
-package org.example.api.controller;
+package org.example.api.domain;
 
 import lombok.Getter;
 import lombok.Setter;

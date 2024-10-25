@@ -1,5 +1,6 @@
 package org.example.api.controller;
 
+import org.example.api.domain.Person;
 import org.springframework.web.bind.annotation.*;
 
 //@RestController 만 쓰면   @ResponseBody + @Controller 와 같은 효과
