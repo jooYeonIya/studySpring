@@ -1,7 +1,9 @@
 package org.example.spring_sample.student.controller;
 
+import lombok.AllArgsConstructor;
 import org.example.spring_sample.student.domain.Student;
 import org.example.spring_sample.student.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,8 +11,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
-  StudentService service;
+  // 필드 방식으로 주업 -> 이 때는 Controller의 생성자 필요 없음 & final 못 씀 (왜냐면 처음에 초기값을 줘야 하는데 안 주니까)
+  // @Autowired
+  final StudentService service;
 
+  // 생성자 주입
+  // final 사용 가능 (생성자를 통해 초기값을 준다고 설정해놔서?)
+  @Autowired
   public StudentController(StudentService studentService) {
     this.service = studentService;
   }
