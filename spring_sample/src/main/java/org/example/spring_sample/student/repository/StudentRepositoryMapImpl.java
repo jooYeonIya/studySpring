@@ -42,7 +42,7 @@ public class StudentRepositoryMapImpl implements StudentRepository {
   }
 
   @Override
-  public void delete(Student student) {
-    students.remove(student.getId());
+  public void delete(int id) {
+    students.remove(id);
   }
 }

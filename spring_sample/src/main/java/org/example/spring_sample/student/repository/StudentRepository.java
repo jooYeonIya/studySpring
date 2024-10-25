@@ -9,5 +9,5 @@ public interface StudentRepository {
   Student findById(int id);
   void update(Student student);
   int add(Student student);
-  void delete(Student student);
+  void delete(int id);
 }
