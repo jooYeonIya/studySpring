@@ -31,8 +31,17 @@ public class StudentService {
 
   public Student update(int id, Student student) {
     Student oldStudent = repository.findById(id);
-    oldStudent.setUniv(student.getUniv());
-    oldStudent.setEmail(student.getEmail());
+
+    if (oldStudent.getUniv() != null) {
+      oldStudent.setUniv(student.getUniv());
+    }
+
+    if (oldStudent.getEmail() != null) {
+      oldStudent.setEmail(student.getEmail());
+    }
+
+    repository.update(oldStudent);
+
     return oldStudent;
   }
 
