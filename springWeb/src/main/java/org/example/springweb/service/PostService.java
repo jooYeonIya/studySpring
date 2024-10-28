@@ -1,14 +1,13 @@
 package org.example.springweb.service;
 
-import org.example.springweb.domain.Post;
-import org.example.springweb.domain.PostCreateRequestDTO;
-import org.example.springweb.domain.PostDetailResponseDTO;
-import org.example.springweb.domain.PostUpdateRequestDTO;
+import org.example.springweb.domain.*;
 import org.example.springweb.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -20,8 +19,9 @@ public class PostService {
     this.postRepository = postRepository;
   }
 
-  public List<Post> getAllPosts() {
-    return postRepository.findAll();
+  public List<PostAllResponseDTO> getAllPosts() {
+    List<Post> all = postRepository.findAll();
+    return  all.stream().map(PostAllResponseDTO::of).collect(Collectors.toList());
   }
 
   public PostDetailResponseDTO getPostDetail(int id) {

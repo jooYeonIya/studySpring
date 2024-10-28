@@ -9,4 +9,8 @@ public class PostAllResponseDTO {
   private int id;
   private String title;
   private String content;
+
+  public static PostAllResponseDTO of(Post post) {
+    return new PostAllResponseDTO(post.getId(), post.getTitle(), post.getContent());
+  }
 }
