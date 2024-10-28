@@ -2,8 +2,10 @@ package org.example.spring_sample.student.service;
 
 import org.example.spring_sample.student.domain.Student;
 import org.example.spring_sample.student.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 // 컨트롤러와 리포지토리의 중간 단계
@@ -11,11 +13,12 @@ import java.util.List;
 public class StudentService {
   StudentRepository repository;
 
+  @Autowired
   public StudentService(StudentRepository repository) {
     this.repository = repository;
   }
 
-  public List<Student> getAllStudents() {
+  public List<Student> getAllStudents() throws SQLException {
     return repository.findALl();
   }
 

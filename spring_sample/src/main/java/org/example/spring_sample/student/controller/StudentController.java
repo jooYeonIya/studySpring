@@ -6,6 +6,7 @@ import org.example.spring_sample.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class StudentController {
   }
 
   @GetMapping
-  public List<Student> getStudents() {
+  public List<Student> getStudents() throws SQLException {
     return service.getAllStudents();
   }
 

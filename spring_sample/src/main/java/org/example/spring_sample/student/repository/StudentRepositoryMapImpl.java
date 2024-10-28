@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
 public class StudentRepositoryMapImpl implements StudentRepository {
   private int seq = 1;
   private Map<Integer, Student> students;
