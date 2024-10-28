@@ -1,15 +1,11 @@
 package org.example.springweb.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
-public class Post {
+public class PostDetailResponseDTO {
   private int id;
   private String title;
   private String content;

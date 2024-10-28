@@ -48,9 +48,10 @@ public class PostRepositoryImpl implements PostRepository {
   }
 
   @Override
-  public void updateLike(int id) {
+  public int updateLike(int id) {
     Post post = findById(id);
-    int likes = post.getLikes();
-    post.setLikes(likes + 1);
+    int likes = post.getLikes() + 1;
+    post.setLikes(likes);
+    return likes;
   }
 }
