@@ -32,13 +32,13 @@ public class SNSService {
     return snsRepository.findById(id);
   }
 
-  public SNS updateSNS(SNS sns) {
-    SNS findSns = snsRepository.findById(sns.getId()).get();
+  public SNS updateSNS(String id, SNS sns) {
+    SNS findSns = snsRepository.findById(id).get();
     findSns.setBody(sns.getBody());
     // 없으면 추가, 있으면 수정
     return snsRepository.save(findSns);
   }
-  
+
   public void deleteSNSById(String id) {
     snsRepository.deleteById(id);
   }
