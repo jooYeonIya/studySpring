@@ -13,7 +13,7 @@ public class Employee {
     // @OneToMany FetchType.LAZY 지연 로딩
     // @OneToOne // fatch type: EAGER 즉시 로딩 - 무조건 다 가져와
     // @OneToOne(fetch = FetchType.LAZY) 따로 설정해줄 수도 있음
-    @ManyToOne // fatch type: EAGER
+    @ManyToOne // 기본 타입은 fatch type: EAGER
     //@Entity 또는 @Column 에서 카멜케이스를 사용할 경우 JPA가 스네이크 케이스로 변경해서 쿼리 날림.
     @JoinColumn(name="dept_id")
     private Department dept;

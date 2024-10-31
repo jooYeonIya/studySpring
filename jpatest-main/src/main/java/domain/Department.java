@@ -16,8 +16,8 @@ public class Department {
 
     // 연관 관계의 주인이 누구인지 설정해주기!
     // 연관 관계의 주인은 FK가 있는 쪽, 필드명 써주기
-    @OneToMany(mappedBy = "dept")
-    List<Employee> employeeList = new ArrayList<Employee>();
+//    @OneToMany(mappedBy = "dept")
+//    List<Employee> employeeList = new ArrayList<Employee>();
 
     public int getDeptId() {
         return deptId;
@@ -35,7 +35,7 @@ public class Department {
         this.deptName = deptName;
     }
 
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
+//    public List<Employee> getEmployeeList() {
+//        return employeeList;
+//    }
 }
