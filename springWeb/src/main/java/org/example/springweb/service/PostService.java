@@ -1,5 +1,6 @@
 package org.example.springweb.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.springweb.domain.*;
 import org.example.springweb.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
   // fanal 이 애플리케이션이 실행되는 동안은 불변
   private final PostRepository postRepository;
 
-  @Autowired
-  public PostService(PostRepository postRepository) {
-    this.postRepository = postRepository;
-  }
+//  @Autowired
+//  public PostService(PostRepository postRepository) {
+//    this.postRepository = postRepository;
+//  }
 
   public List<PostAllResponseDTO> getAllPosts() {
     List<Post> all = postRepository.findAll();
@@ -49,5 +51,14 @@ public class PostService {
 
   public int updateLikesPost(int id) {
     return postRepository.updateLike(id);
+  }
+
+  public List<PostAllResponseDTO> getAllPostsWithLikes(Integer likes, String title) {
+    //likes 값보다 큰 게시판을 전부 조회
+    List<Post> allPosts = postRepository.findAllWithLikes(likes, title);
+    List<PostAllResponseDTO> postDtos = allPosts.stream()
+        .map(PostAllResponseDTO::of)
+        .collect(Collectors.toList());
+    return postDtos;
   }
 }

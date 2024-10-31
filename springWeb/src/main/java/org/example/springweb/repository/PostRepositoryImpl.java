@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
 public class PostRepositoryImpl implements PostRepository {
   private static int seq = 1;
   private static Map<Integer, Post> posts = new HashMap<>();
@@ -53,5 +53,10 @@ public class PostRepositoryImpl implements PostRepository {
     int likes = post.getLikes() + 1;
     post.setLikes(likes);
     return likes;
+  }
+
+  @Override
+  public List<Post> findAllWithLikes(Integer likes, String title) {
+    return new ArrayList<>(posts.values());
   }
 }

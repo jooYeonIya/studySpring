@@ -1,5 +1,6 @@
 package org.example.springweb.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.springweb.domain.*;
 import org.example.springweb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +9,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class PostController {
   private final PostService postService;
 
   // @Autowired 는 스프링 빈만 사용 가능
-  @Autowired
-  public PostController(PostService postService) {
-    this.postService = postService;
-  }
+//  @Autowired
+//  public PostController(PostService postService) {
+//    this.postService = postService;
+//  }
 
   @GetMapping("/posts")
   public List<PostAllResponseDTO> viewAllPosts() {
@@ -45,5 +47,13 @@ public class PostController {
   @PutMapping("/posts/{id}")
   public int updateLikesPost(@PathVariable("id") int id) {
     return postService.updateLikesPost(id);
+  }
+
+  // http://localhost:8080/posts/likes?likes=5&title=asdf
+  @GetMapping("/posts/likes")
+  public List<PostAllResponseDTO> viewAllPostsWithLikes(
+      @RequestParam(name="likes", required = false) Integer likes,
+      @RequestParam(name="title", required = false) String title) {
+        return postService.getAllPostsWithLikes(likes, title);
   }
 }
