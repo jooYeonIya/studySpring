@@ -14,7 +14,8 @@ import lombok.*;
 @Setter
 public class SNS {
   @Id
-  private int id;
+  @Column(length=6)
+  private String id;
   @Column(length=6)
   private String title;
   @Column(length=45)
