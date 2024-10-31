@@ -28,18 +28,18 @@ public class SNSService {
   }
 
   @Transactional(readOnly = true)
-  public Optional<SNS> getSNSById(String id) {
+  public Optional<SNS> getSNSById(int id) {
     return snsRepository.findById(id);
   }
 
-  public SNS updateSNS(String id, SNS sns) {
+  public SNS updateSNS(int id, SNS sns) {
     SNS findSns = snsRepository.findById(id).get();
     findSns.setBody(sns.getBody());
     // 없으면 추가, 있으면 수정
     return snsRepository.save(findSns);
   }
 
-  public void deleteSNSById(String id) {
+  public void deleteSNSById(int id) {
     snsRepository.deleteById(id);
   }
 }

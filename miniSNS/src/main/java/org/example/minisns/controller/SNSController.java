@@ -25,17 +25,17 @@ public class SNSController {
   }
 
   @GetMapping("/{id}")
-  public SNS getSNSById(@PathVariable("id") String id) {
+  public SNS getSNSById(@PathVariable("id") int id) {
     return snsService.getSNSById(id).get();
   }
 
   @PutMapping("/{id}")
-  public SNS updateSNS(@PathVariable("id") String id, @RequestBody SNS sns) {
+  public SNS updateSNS(@PathVariable("id") int id, @RequestBody SNS sns) {
     return snsService.updateSNS(id, sns);
   }
 
   @DeleteMapping("/{id}")
-  public void deleteSNS(@PathVariable("id") String id) {
+  public void deleteSNS(@PathVariable("id") int id) {
     snsService.deleteSNSById(id);
   }
 }

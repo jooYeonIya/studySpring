@@ -15,8 +15,7 @@ import lombok.*;
 @Setter
 public class SNS {
   @Id
-  @Column(length=6)
-  private String id;
+  private int id;
   @Column(length=6)
   private String title;
   @Column(length=45)
@@ -34,4 +33,9 @@ public class SNS {
 //primary key (id)
 //    ) engine=InnoDB
 // 빌드 시, sns 테이블이 있는지 확인 후 없으면 만든다
-// 만약에 sns 테이블이 있어도 설정을 update로 했기 때문에 수정 사항이 있으면 업데이트도 해준다
+
+//    Hibernate:
+//    alter table sns
+//    modify column id integer not null
+// PK 데이터 타입을 int로 변경
+// sns 테이블이 있어도 설정을 update로 했기 때문에 수정 사항이 있으면 업데이트도 해준다
