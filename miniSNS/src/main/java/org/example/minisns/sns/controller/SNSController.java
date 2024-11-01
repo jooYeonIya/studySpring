@@ -2,6 +2,9 @@ package org.example.minisns.sns.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.minisns.sns.domain.SNS;
+import org.example.minisns.sns.domain.SNSCreateRequestDto;
+import org.example.minisns.sns.domain.SNSDetailResponseDto;
+import org.example.minisns.sns.domain.SNSUpdateRequestDto;
 import org.example.minisns.sns.service.SNSService;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,4 +41,27 @@ public class SNSController {
   public void deleteSNS(@PathVariable("id") int id) {
     snsService.deleteSNSById(id);
   }
+
+  @PostMapping("/users/{userId}")
+  public SNSDetailResponseDto createSNSWithUser(@PathVariable("userId") String userId, @RequestBody SNSCreateRequestDto sns) {
+    sns.setUserId(userId);
+    return snsService.createSNSWithUser(sns);
+  }
+
+  @GetMapping("/{id}/users/{userId}")
+  public SNS getSNSWithUser(@PathVariable("id") int id, @PathVariable("userId") String userId) {
+    return snsService.getSNSDetail(id);
+  }
+
+//  @PatchMapping("/{id}/users/{userId}")
+//  public SNSDetailResponseDto updateSNSWithUser(@PathVariable("id") int id,
+//                                                @PathVariable("userId") String userId,
+//                                                @RequestBody SNSUpdateRequestDto sns) {
+//    return snsService.updateSNS(id, userId, sns);
+//  }
+//
+//  @DeleteMapping("/{id}/users/{userId}")
+//  public void deleteSNSWithUser(@PathVariable("id") int id, @PathVariable("userId") String userId) {
+//    snsService.removeSNSWithUser(id, userId);
+//  }
 }

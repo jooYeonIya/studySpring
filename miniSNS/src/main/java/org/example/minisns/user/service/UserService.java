@@ -24,7 +24,6 @@ public class UserService {
 
   @Transactional(readOnly = true)
   public User getUserByUserId(String userId) {
-
     return userRepository.findByUserId(userId);
   }
 

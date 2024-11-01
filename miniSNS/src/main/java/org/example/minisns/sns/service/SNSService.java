@@ -2,7 +2,12 @@ package org.example.minisns.sns.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.minisns.sns.domain.SNS;
+import org.example.minisns.sns.domain.SNSCreateRequestDto;
+import org.example.minisns.sns.domain.SNSDetailResponseDto;
+import org.example.minisns.sns.domain.SNSUpdateRequestDto;
 import org.example.minisns.sns.repository.SNSRepository;
+import org.example.minisns.user.domain.User;
+import org.example.minisns.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +21,7 @@ import java.util.Optional;
 @Transactional
 public class SNSService {
   private final SNSRepository snsRepository;
+  private final UserRepository userRepository;
 
   // 커밋과 롤백을 안 함 (읽어오기만 함)
   @Transactional(readOnly = true)
@@ -42,4 +48,31 @@ public class SNSService {
   public void deleteSNSById(int id) {
     snsRepository.deleteById(id);
   }
+
+  public SNSDetailResponseDto createSNSWithUser(SNSCreateRequestDto sns) {
+    User user = userRepository.findByUserId(sns.getUserId());
+    SNS newSns = new SNS();
+    newSns.setTitle(sns.getTitle());
+    newSns.setBody(sns.getBody());
+    newSns.setUser(user);
+    newSns = snsRepository.save(newSns);
+    return new SNSDetailResponseDto(newSns.getId(), newSns.getTitle(), newSns.getBody(), newSns.getLikes(), newSns.getUser().getUserId());
+  }
+
+  public SNS getSNSDetail(int id) {
+    SNS sns = snsRepository.findBySNSWithUserFetchjoin(id);
+    return sns;
+  }
+
+//  public SNSDetailResponseDto updateSNS(int id, String userId, SNSUpdateRequestDto sns) {
+//    SNS findSns = snsRepository.findById(id).get();
+//
+//    if(findSns.getUser().getUserId().equals(userId)) {
+//
+//    }
+//  }
+//
+//  public void removeSNSWithUser(int id, String userId) {
+//
+//  }
 }
