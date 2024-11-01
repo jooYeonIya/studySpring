@@ -1,8 +1,8 @@
-package org.example.minisns.controller;
+package org.example.minisns.sns.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.minisns.domain.SNS;
-import org.example.minisns.service.SNSService;
+import org.example.minisns.sns.domain.SNS;
+import org.example.minisns.sns.service.SNSService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,8 +1,8 @@
-package org.example.minisns.service;
+package org.example.minisns.sns.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.minisns.domain.SNS;
-import org.example.minisns.repository.SNSRepository;
+import org.example.minisns.sns.domain.SNS;
+import org.example.minisns.sns.repository.SNSRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

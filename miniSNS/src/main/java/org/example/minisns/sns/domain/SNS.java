@@ -1,10 +1,8 @@
-package org.example.minisns.domain;
+package org.example.minisns.sns.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.example.minisns.user.domain.User;
 
 //해당 클래스가 JPA(Entity)를 나타낸다는 것을 의미
 @Entity
@@ -21,6 +19,9 @@ public class SNS {
   @Column(length=45)
   private String body;
   private int likes;
+  @ManyToOne
+  @JoinColumn(name = "userId")
+  private User user;
 }
 
 
