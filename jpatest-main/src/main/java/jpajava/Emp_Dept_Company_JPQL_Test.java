@@ -19,7 +19,7 @@ public class Emp_Dept_Company_JPQL_Test {
     try {
 
       // Employee emp = em.find(Employee.class, "202402"); -> 이 부분을 JPQL 을 써서 찾아오기
-      String jpql = "select e from Employee e";
+      String jpql = "select e from Employee e join fetch e.dept";
       // createQuery(쿼리문, 반환 타입)
       List<Employee> emp = em.createQuery(jpql, Employee.class).getResultList();
       for (Employee employee : emp) {
@@ -27,7 +27,8 @@ public class Emp_Dept_Company_JPQL_Test {
         // 지연 로딩 상태로 아래를 실행시키면
         // 처음 spql 로 한 번 가져오고
         // 각각 필요할 때맏 부서 이름을 불러오는 쿼리를 실행시킨다
-        System.out.println(("asdf :: " + employee.getDept().getDeptName()));
+        System.out.println(("부서 이름 :: " + employee.getDept().getDeptName()));
+        // 그런데 join fetch 를 써서 쿼리문을 실행시키면 조인한 상태로 쿼리를 실행 = 1번만 실행
       }
       System.out.println("커밋 전");
       tx.commit();
