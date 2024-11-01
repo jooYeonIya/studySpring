@@ -24,6 +24,10 @@ public class Emp_Dept_Company_JPQL_Test {
       List<Employee> emp = em.createQuery(jpql, Employee.class).getResultList();
       for (Employee employee : emp) {
         System.out.println(employee.getEmpName());
+        // 지연 로딩 상태로 아래를 실행시키면
+        // 처음 spql 로 한 번 가져오고
+        // 각각 필요할 때맏 부서 이름을 불러오는 쿼리를 실행시킨다
+        System.out.println(("asdf :: " + employee.getDept().getDeptName()));
       }
       System.out.println("커밋 전");
       tx.commit();
