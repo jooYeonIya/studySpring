@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Getter
 public class User {
   @Id
-  private int userId;
+  private int id;
   private String userName;
   private String password;
-  private String id;
+  private String userId;
 }
