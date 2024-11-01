@@ -28,4 +28,9 @@ public class UserController {
   public User getUser(@PathVariable("userId") String userId) {
     return userService.getUserByUserId(userId);
   }
+
+  @DeleteMapping("/{userId}")
+  public void deleteUser(@PathVariable("userId") String userId) {
+    userService.removeUser(userId);
+  }
 }

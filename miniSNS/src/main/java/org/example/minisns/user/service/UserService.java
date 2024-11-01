@@ -22,7 +22,12 @@ public class UserService {
     return userRepository.save(user);
   }
 
+  @Transactional(readOnly = true)
   public User getUserByUserId(String userId) {
     return userRepository.findByUserId(userId);
+  }
+
+  public void removeUser(String userId) {
+    userRepository.deleteByUserId(userId);
   }
 }
