@@ -24,10 +24,17 @@ public class UserService {
 
   @Transactional(readOnly = true)
   public User getUserByUserId(String userId) {
+
     return userRepository.findByUserId(userId);
   }
 
   public void removeUser(String userId) {
     userRepository.deleteByUserId(userId);
+  }
+
+  public void changePassword(String userId, User user) {
+    User oldUser = getUserByUserId(userId);
+    oldUser.setPassword(user.getPassword());
+    userRepository.save(oldUser);
   }
 }
