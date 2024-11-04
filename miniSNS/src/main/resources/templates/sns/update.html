@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>udpate sns</h1>
+  <form th:action="@{/posts/update/{id}(id=${sns.id})}" method="post">
+    title <input type="text" name="title" id="title" th:value="${sns.title}">
+    body <input type="text" name="body" id="body" th:value="${sns.body}">
+    <input type="submit" value="update">
+  </form>
+</body>
+</html>

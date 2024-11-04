@@ -38,7 +38,7 @@ public class SNSService {
     return snsRepository.findById(id);
   }
 
-  public SNS updateSNS(int id, SNS sns) {
+  public SNS updateSNS(int id, SNSUpdateRequestDto sns) {
     SNS findSns = snsRepository.findById(id).get();
     findSns.setBody(sns.getBody());
     // 없으면 추가, 있으면 수정
@@ -49,8 +49,8 @@ public class SNSService {
     snsRepository.deleteById(id);
   }
 
-  public SNSDetailResponseDto createSNSWithUser(SNSCreateRequestDto sns) {
-    User user = userRepository.findByUserId(sns.getUserId());
+  public SNSDetailResponseDto createSNSWithUser(String userId, SNSCreateRequestDto sns) {
+    User user = userRepository.findByUserId(userId);
     SNS newSns = new SNS();
     newSns.setTitle(sns.getTitle());
     newSns.setBody(sns.getBody());

@@ -6,20 +6,23 @@ import org.example.minisns.sns.domain.SNSCreateRequestDto;
 import org.example.minisns.sns.domain.SNSDetailResponseDto;
 import org.example.minisns.sns.domain.SNSUpdateRequestDto;
 import org.example.minisns.sns.service.SNSService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/posts")
 public class SNSController {
   private final SNSService snsService;
-//      • 선택한 글 삭제하기 : DELETE , http://localhost:8080/posts/1
 
   @GetMapping
-  public List<SNS> getAllSNS() {
-    return snsService.getAllSNS();
+  public String getAllSNS(Model model) {
+    model.addAttribute("allSNS", snsService.getAllSNS());
+    return "sns/all";
   }
 
   @PostMapping
@@ -28,13 +31,21 @@ public class SNSController {
   }
 
   @GetMapping("/{id}")
-  public SNS getSNSById(@PathVariable("id") int id) {
-    return snsService.getSNSById(id).get();
+  public String getSNSById(@PathVariable("id") int id, Model model) {
+    model.addAttribute("detail", snsService.getSNSById(id).get());
+    return "sns/detail";
   }
 
-  @PutMapping("/{id}")
-  public SNS updateSNS(@PathVariable("id") int id, @RequestBody SNS sns) {
-    return snsService.updateSNS(id, sns);
+  @GetMapping("/update/{id}")
+  public String updateSNS(@PathVariable("id") int id, Model model) {
+    model.addAttribute("sns", snsService.getSNSById(id).get());
+    return "sns/update";
+  }
+
+  @PostMapping("/update/{id}")
+  public String updateSNS(@PathVariable("id") int id, SNSUpdateRequestDto sns) {
+    snsService.updateSNS(id, sns);
+    return "redirect:/posts";
   }
 
   @DeleteMapping("/{id}")
@@ -42,10 +53,15 @@ public class SNSController {
     snsService.deleteSNSById(id);
   }
 
-  @PostMapping("/users/{userId}")
-  public SNSDetailResponseDto createSNSWithUser(@PathVariable("userId") String userId, @RequestBody SNSCreateRequestDto sns) {
-    sns.setUserId(userId);
-    return snsService.createSNSWithUser(sns);
+  @GetMapping("/add")
+  public String addSNS() {
+    return "sns/add";
+  }
+
+  @PostMapping("/add")
+  public String createSNSWithUser(SNSCreateRequestDto sns) {
+    snsService.createSNSWithUser("asdf", sns);
+    return "redirect:/posts";
   }
 
   @GetMapping("/{id}/users/{userId}")

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>title</th>
+            <th>body</th>
+        </tr>
+        <tr th:each="sns : ${allSNS}">
+            <td><a th:href="@{/posts/{id}(id=${sns.id})}" th:text="${sns.id}">아이디</a></td>
+            <td th:text="${sns.title}"></td>
+            <td th:text="${sns.body}"></td>
+        </tr>
+    </table>
+</body>
+</html>
