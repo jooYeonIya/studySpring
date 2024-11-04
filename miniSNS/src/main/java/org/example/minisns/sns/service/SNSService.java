@@ -64,6 +64,10 @@ public class SNSService {
     return sns;
   }
 
+  public List<SNSDetailResponseDto> getSNSByUserId(String userId) {
+    return snsRepository.getByUserId(userId);
+  }
+
 //  public SNSDetailResponseDto updateSNS(int id, String userId, SNSUpdateRequestDto sns) {
 //    SNS findSns = snsRepository.findById(id).get();
 //

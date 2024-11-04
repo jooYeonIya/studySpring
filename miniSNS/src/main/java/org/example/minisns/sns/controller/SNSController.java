@@ -53,6 +53,11 @@ public class SNSController {
     return snsService.getSNSDetail(id);
   }
 
+  @GetMapping("/SNSList")
+  public List<SNSDetailResponseDto> getSNSList() {
+    return snsService.getSNSByUserId("asdf");
+  }
+
 //  @PatchMapping("/{id}/users/{userId}")
 //  public SNSDetailResponseDto updateSNSWithUser(@PathVariable("id") int id,
 //                                                @PathVariable("userId") String userId,
