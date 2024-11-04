@@ -36,4 +36,9 @@ public class UserService {
     oldUser.setPassword(user.getPassword());
     userRepository.save(oldUser);
   }
+
+  public List<User> getUserList() {
+    return userRepository.findByUserIdAndUserName("asdf", "dddd");
+
+  }
 }

@@ -38,4 +38,9 @@ public class UserController {
   public void updateUser(@PathVariable("userId") String userId, @RequestBody User user) {
     userService.changePassword(userId, user);
   }
+
+  @GetMapping("/userList")
+  public List<User> getUserList() {
+    return userService.getUserList();
+  }
 }
