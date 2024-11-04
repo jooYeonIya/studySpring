@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>학생</h1>
+  <p th:text="${data.getAge()}" />
+  <p th:text="${data.getAge}" />
+  <p>이름: [[${data.getName()}]]</p>
+  <p>이름: [[${data.getName}]]</p>
+</body>
+</html>
