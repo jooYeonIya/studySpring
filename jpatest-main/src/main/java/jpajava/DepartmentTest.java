@@ -29,6 +29,5 @@ public class DepartmentTest {
         } catch (Exception e) {
             tx.rollback();
         }
-
     }
 }
