@@ -61,15 +61,17 @@ public class SNSController {
     return "redirect:/posts";
   }
 
+  // 글 삭제하기
+  @RequestMapping("/delete/{id}")
+  public String deleteSNS(@PathVariable("id") int id) {
+    snsService.deleteSNSById(id);
+    return "redirect:/posts";
+  }
+
 //  @PostMapping
 //  public SNS createSNS(@RequestBody SNS sns) {
 //    return snsService.save(sns);
 //  }
-
-  @DeleteMapping("/{id}")
-  public void deleteSNS(@PathVariable("id") int id) {
-    snsService.deleteSNSById(id);
-  }
 
   @GetMapping("/{id}/users/{userId}")
   public SNS getSNSWithUser(@PathVariable("id") int id, @PathVariable("userId") String userId) {
