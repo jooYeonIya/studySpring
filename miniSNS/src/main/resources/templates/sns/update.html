@@ -6,9 +6,9 @@
 </head>
 <body>
   <h1>udpate sns</h1>
-  <form th:action="@{/posts/update/{id}(id=${sns.id})}" method="post">
-    title <input type="text" name="title" id="title" th:value="${sns.title}">
-    body <input type="text" name="body" id="body" th:value="${sns.body}">
+  <form th:action="@{/posts/update/{id}(id=*{id})}" method="post" th:object="${sns}">
+    title <input type="text" id="title" th:field="*{title}">
+    body <input type="text" id="body" th:field="*{body}">
     <input type="submit" value="update">
   </form>
 </body>

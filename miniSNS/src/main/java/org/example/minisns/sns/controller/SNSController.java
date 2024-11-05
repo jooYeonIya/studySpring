@@ -44,29 +44,30 @@ public class SNSController {
     return "redirect:/posts";
   }
 
-  @GetMapping("/{id}")
-  public String getSNSById(@PathVariable("id") int id, Model model) {
-    model.addAttribute("detail", snsService.getSNSById(id).get());
-    return "sns/detail";
-  }
-
+  // 글 업데이트 - 화면 표시
   @GetMapping("/update/{id}")
   public String updateSNS(@PathVariable("id") int id, Model model) {
     model.addAttribute("sns", snsService.getSNSById(id).get());
     return "sns/update";
   }
 
+  // 글 업데이트 - DB 작업
   @PostMapping("/update/{id}")
   public String updateSNS(@PathVariable("id") int id, SNSUpdateRequestDto sns) {
     snsService.updateSNS(id, sns);
     return "redirect:/posts";
   }
 
+  @GetMapping("/{id}")
+  public String getSNSById(@PathVariable("id") int id, Model model) {
+    model.addAttribute("detail", snsService.getSNSById(id).get());
+    return "sns/detail";
+  }
+
   @DeleteMapping("/{id}")
   public void deleteSNS(@PathVariable("id") int id) {
     snsService.deleteSNSById(id);
   }
-
 
   @GetMapping("/{id}/users/{userId}")
   public SNS getSNSWithUser(@PathVariable("id") int id, @PathVariable("userId") String userId) {
@@ -78,15 +79,4 @@ public class SNSController {
     return snsService.getSNSByUserId("asdf");
   }
 
-//  @PatchMapping("/{id}/users/{userId}")
-//  public SNSDetailResponseDto updateSNSWithUser(@PathVariable("id") int id,
-//                                                @PathVariable("userId") String userId,
-//                                                @RequestBody SNSUpdateRequestDto sns) {
-//    return snsService.updateSNS(id, userId, sns);
-//  }
-//
-//  @DeleteMapping("/{id}/users/{userId}")
-//  public void deleteSNSWithUser(@PathVariable("id") int id, @PathVariable("userId") String userId) {
-//    snsService.removeSNSWithUser(id, userId);
-//  }
 }
