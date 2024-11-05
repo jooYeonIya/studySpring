@@ -8,16 +8,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class SpringConfig implements WebMvcConfigurer {
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new LogInterceptor())
-        .addPathPatterns("/**") // /** 는 모든 경로와 하위 경로까지 포함 /member/login 도 가능하다는 의미
-        .order(1);
-    registry.addInterceptor(new LoginIntercepotr())
-        .addPathPatterns("/**")
-        .excludePathPatterns("/members/register", "/members/login") // 이 주소는 제외시켜줘
-        .order(2);
-  }
+/*
+인터셉터
+*/
+//  @Override
+//  public void addInterceptors(InterceptorRegistry registry) {
+//    registry.addInterceptor(new LogInterceptor())
+//        .addPathPatterns("/**") // /** 는 모든 경로와 하위 경로까지 포함 /member/login 도 가능하다는 의미
+//        .order(1);
+//    registry.addInterceptor(new LoginIntercepotr())
+//        .addPathPatterns("/**")
+//        .excludePathPatterns("/members/register", "/members/login") // 이 주소는 제외시켜줘
+//        .order(2);
+//  }
+
+/*
+필터
+*/
   //  @Bean
 //  public FilterRegistrationBean logFilterRegistrationBean() {
 //    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
