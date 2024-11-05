@@ -19,16 +19,19 @@ import java.util.List;
 public class SNSController {
   private final SNSService snsService;
 
+  // 전체 목록 조회
   @GetMapping
   public String getAllSNS(Model model) {
     model.addAttribute("allSNS", snsService.getAllSNS());
     return "sns/all";
   }
 
-//  @PostMapping
-//  public SNS createSNS(@RequestBody SNS sns) {
-//    return snsService.save(sns);
-//  }
+  // 상세 조회
+  @GetMapping("/{id}")
+  public String getSNSById(@PathVariable("id") int id, Model model) {
+    model.addAttribute("detail", snsService.getSNSById(id).get());
+    return "sns/detail";
+  }
 
   // 글 쓰기 - 화면 표시
   @GetMapping("/add")
@@ -58,11 +61,10 @@ public class SNSController {
     return "redirect:/posts";
   }
 
-  @GetMapping("/{id}")
-  public String getSNSById(@PathVariable("id") int id, Model model) {
-    model.addAttribute("detail", snsService.getSNSById(id).get());
-    return "sns/detail";
-  }
+//  @PostMapping
+//  public SNS createSNS(@RequestBody SNS sns) {
+//    return snsService.save(sns);
+//  }
 
   @DeleteMapping("/{id}")
   public void deleteSNS(@PathVariable("id") int id) {
@@ -74,9 +76,9 @@ public class SNSController {
     return snsService.getSNSDetail(id);
   }
 
+  // 쿼리DSL 사용
   @GetMapping("/SNSList")
   public List<SNSDetailResponseDto> getSNSList() {
     return snsService.getSNSByUserId("asdf");
   }
-
 }
