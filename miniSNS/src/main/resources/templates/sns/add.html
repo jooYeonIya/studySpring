@@ -6,10 +6,20 @@
 </head>
 <body>
   <h1>add sns</h1>
-  <form th:action="@{/posts/add}" method="post">
-    title <input type="text" name="title" id="title">
-    body <input type="text" name="body" id="body">
+  <form th:action="@{/posts/add}" method="post" th:object="${sns}">
+    title <input type="text" id="title" th:field="*{title}">
+    body <input type="text"  id="body" th:field="*{body}">
     <input type="submit" value="add">
   </form>
 </body>
 </html>
+
+<!--
+${sns.titlt} 을 쓰는데
+이것들을 object로 감싸면
+*{} = ${sns} 라는 의미가 되서
+*{title}로 쓸 수 있음
+
+그런데 컨트롤러에에서 sns을 넘겨주지 않았을 때는 빨간줄 에러 발생
+그래서 빈 객체를 넘겨준다
+-->

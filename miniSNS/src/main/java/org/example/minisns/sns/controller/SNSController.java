@@ -25,9 +25,23 @@ public class SNSController {
     return "sns/all";
   }
 
-  @PostMapping
-  public SNS createSNS(@RequestBody SNS sns) {
-    return snsService.save(sns);
+//  @PostMapping
+//  public SNS createSNS(@RequestBody SNS sns) {
+//    return snsService.save(sns);
+//  }
+
+  // 글 쓰기 - 화면 표시
+  @GetMapping("/add")
+  public String addSNS(Model model) {
+    model.addAttribute("sns", new SNS());
+    return "sns/add";
+  }
+
+  // 글 쓰기 - DB 작업
+  @PostMapping("/add")
+  public String createSNSWithUser(SNSCreateRequestDto sns) {
+    snsService.createSNSWithUser("asdf", sns);
+    return "redirect:/posts";
   }
 
   @GetMapping("/{id}")
@@ -53,16 +67,6 @@ public class SNSController {
     snsService.deleteSNSById(id);
   }
 
-  @GetMapping("/add")
-  public String addSNS() {
-    return "sns/add";
-  }
-
-  @PostMapping("/add")
-  public String createSNSWithUser(SNSCreateRequestDto sns) {
-    snsService.createSNSWithUser("asdf", sns);
-    return "redirect:/posts";
-  }
 
   @GetMapping("/{id}/users/{userId}")
   public SNS getSNSWithUser(@PathVariable("id") int id, @PathVariable("userId") String userId) {
