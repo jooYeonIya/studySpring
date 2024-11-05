@@ -6,15 +6,18 @@
 </head>
 <body>
     <h2>detail</h2>
-    <table>
+    <table th:object="${detail}">
         <tr>
             <td>title</td>
-            <td th:text="${detail.title}"></td>
+            <td th:text="*{title}"></td>
         </tr>
         <tr>
             <td>body</td>
-            <td th:text="${detail.body}"></td>
+            <td th:text="*{body}"></td>
         </tr>
     </table>
+    <button th:onclick="|location.href='@{/posts/update/{id}(id=*{id})}'|">수정</button>
+    <button th:onclick="|location.href='@{/posts/delete/{id}(id=*{id})}'|">삭제</button>
+    <button th:onclick="|location.href='@{/posts}'|">목록으로</button>
 </body>
 </html>
