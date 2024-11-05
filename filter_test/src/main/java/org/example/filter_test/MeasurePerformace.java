@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MeasurePerformace {
-  @Around("execution(* org.example.filter_test..*(..))")
-  public void measurePerformace(ProceedingJoinPoint pjp) throws Throwable {
-    long start = System.nanoTime();
-    pjp.proceed();
-    long end = System.nanoTime();
-    log.info("aspect measurePerformace : {}", end-start);
-  }
+//  @Around("execution(* org.example.filter_test..*(..))")
+//  public void measurePerformace(ProceedingJoinPoint pjp) throws Throwable {
+//    long start = System.nanoTime();
+//    pjp.proceed();
+//    long end = System.nanoTime();
+//    log.info("aspect measurePerformace : {}", end-start);
+//  }
 }
