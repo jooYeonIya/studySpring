@@ -14,13 +14,14 @@ public class LoginFilter implements Filter { // 로그인 여부를 체크하는
     HttpServletRequest req = (HttpServletRequest) servletRequest;
     // true 는 세션이 있으면 반환, 없으면 새 세션 생성
     // false 는 세션이 있으면 반환 , 없으면 null 반환
-    HttpSession session = req.getSession(true);
+    HttpSession session = req.getSession(false);
 
     if (session == null) {
       log.info("로그인 아녀~");
     } else {
       log.info("로그인 했슈~");
-      filterChain.doFilter(servletRequest, servletResponse);
     }
+
+    filterChain.doFilter(servletRequest, servletResponse);
   }
 }
