@@ -15,4 +15,12 @@ public class SpringConfig {
     return filterRegistrationBean;
 //    return new FilterRegistrationBean(new LogFilter()); 생성자 주입 방식
   }
+
+  @Bean
+  public FilterRegistrationBean loginFilterRegistrationBean() {
+    FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new LoginFilter());
+    filterRegistrationBean.addUrlPatterns("/*");
+    filterRegistrationBean.setOrder(2);
+    return filterRegistrationBean;
+  }
 }
