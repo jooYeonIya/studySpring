@@ -43,7 +43,7 @@ public class SNSController {
   // 글 쓰기 - DB 작업
   @PostMapping("/add")
   public String createSNSWithUser(SNSCreateRequestDto sns) {
-    snsService.createSNSWithUser("asdf", sns);
+    snsService.createSNSWithUser("aaa", sns);
     return "redirect:/posts";
   }
 

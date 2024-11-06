@@ -30,6 +30,7 @@ public class LoginController {
 
   @PostMapping("/login")
   public String login(@ModelAttribute UserLoginDto userLoginDto,
+                      @RequestParam(name="redirectURI", required = true, defaultValue = "/posts") String redirectURI,
                       HttpServletResponse response,
                       HttpServletRequest request) {
     User loginUser = loinService.login(userLoginDto);
@@ -44,7 +45,7 @@ public class LoginController {
       cookie.setPath("/");
       cookie.setMaxAge(600); // 초단위
       response.addCookie(cookie);
-      return "redirect:/posts";
+      return "redirect:" + redirectURI;
     }
   }
 }
