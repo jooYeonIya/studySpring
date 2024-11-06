@@ -39,6 +39,10 @@ public class UserService {
 
   public List<User> getUserList() {
     return userRepository.findByUserIdAndUserName("asdf", "dddd");
+  }
 
+  public boolean isChekcedIDAndPassword(String userId, String password) {
+    User user = getUserByUserId(userId);
+    return (user == null || user.getPassword().equals(password));
   }
 }

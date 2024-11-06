@@ -1,5 +1,9 @@
 package org.example.minisns.sns.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.example.minisns.sns.domain.SNS;
 import org.example.minisns.sns.domain.SNSCreateRequestDto;
@@ -7,6 +11,7 @@ import org.example.minisns.sns.domain.SNSDetailResponseDto;
 import org.example.minisns.sns.domain.SNSUpdateRequestDto;
 import org.example.minisns.sns.service.SNSService;
 import org.example.minisns.user.domain.User;
+import org.example.minisns.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +24,7 @@ import java.util.List;
 @RequestMapping("/posts")
 public class SNSController {
   private final SNSService snsService;
+  private final UserService userService;
 
   //로그인 - 화면 표시
   @GetMapping("/login")
@@ -29,8 +35,18 @@ public class SNSController {
 
   // 로그인 - DB 체크
   @PostMapping("/login")
-  public String login(User userInfo, Model model) {
-    return "redirect:/posts/all";
+  public String login(User userInfo, Model model, HttpServletRequest request, HttpServletResponse response) {
+    boolean chekcedIDAndPassword = userService.isChekcedIDAndPassword(userInfo.getUserId(), userInfo.getPassword());
+    if (chekcedIDAndPassword) {
+      HttpSession session = request.getSession(true);
+      session.setAttribute("userId", userInfo.getUserId());
+      session.setMaxInactiveInterval(60);
+      Cookie cookie = new Cookie("userId", userInfo.getUserId());
+      response.addCookie(cookie);
+      return "redirect:/posts/all";
+    } else {
+      return "sns/login";
+    }
   }
 
   // 전체 목록 조회
