@@ -6,6 +6,7 @@ import org.example.minisns.sns.domain.SNSCreateRequestDto;
 import org.example.minisns.sns.domain.SNSDetailResponseDto;
 import org.example.minisns.sns.domain.SNSUpdateRequestDto;
 import org.example.minisns.sns.service.SNSService;
+import org.example.minisns.user.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,21 @@ import java.util.List;
 public class SNSController {
   private final SNSService snsService;
 
-  // 전체 목록 조회
+  //로그인 - 화면 표시
   @GetMapping
+  public String login(Model model) {
+    model.addAttribute("loginInfo", new User());
+    return "sns/login";
+  }
+
+  // 로그인 - DB 체크
+  @PostMapping("/login")
+  public String login(User userInfo, Model model) {
+    return "redirect:/posts/all";
+  }
+
+  // 전체 목록 조회
+  @GetMapping("/all")
   public String getAllSNS(Model model) {
     model.addAttribute("allSNS", snsService.getAllSNS());
     return "sns/all";
@@ -44,7 +58,7 @@ public class SNSController {
   @PostMapping("/add")
   public String createSNSWithUser(SNSCreateRequestDto sns) {
     snsService.createSNSWithUser("asdf", sns);
-    return "redirect:/posts";
+    return "redirect:/posts/all";
   }
 
   // 글 업데이트 - 화면 표시
@@ -58,14 +72,14 @@ public class SNSController {
   @PostMapping("/update/{id}")
   public String updateSNS(@PathVariable("id") int id, SNSUpdateRequestDto sns) {
     snsService.updateSNS(id, sns);
-    return "redirect:/posts";
+    return "redirect:/posts/all";
   }
 
   // 글 삭제하기
   @RequestMapping("/delete/{id}")
   public String deleteSNS(@PathVariable("id") int id) {
     snsService.deleteSNSById(id);
-    return "redirect:/posts";
+    return "redirect:/posts/all";
   }
 
 //  @PostMapping
