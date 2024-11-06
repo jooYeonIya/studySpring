@@ -21,7 +21,7 @@ public class SNSController {
   private final SNSService snsService;
 
   //로그인 - 화면 표시
-  @GetMapping
+  @GetMapping("/login")
   public String login(Model model) {
     model.addAttribute("loginInfo", new User());
     return "sns/login";
