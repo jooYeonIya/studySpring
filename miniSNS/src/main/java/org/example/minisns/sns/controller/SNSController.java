@@ -1,11 +1,16 @@
 package org.example.minisns.sns.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.example.minisns.sns.domain.SNS;
 import org.example.minisns.sns.domain.SNSCreateRequestDto;
 import org.example.minisns.sns.domain.SNSDetailResponseDto;
 import org.example.minisns.sns.domain.SNSUpdateRequestDto;
 import org.example.minisns.sns.service.SNSService;
+import org.example.minisns.user.session.SessionConst;
+import org.example.minisns.user.session.UserSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,14 +55,28 @@ public class SNSController {
   // 글 업데이트 - 화면 표시
   @GetMapping("/update/{id}")
   public String updateSNS(@PathVariable("id") int id, Model model) {
+    // session id와 파라미터 id가 일치하면 화면 표시
     model.addAttribute("sns", snsService.getSNSById(id).get());
     return "sns/update";
   }
 
   // 글 업데이트 - DB 작업
-  @PostMapping("/update/{id}")
-  public String updateSNS(@PathVariable("id") int id, SNSUpdateRequestDto sns) {
-    snsService.updateSNS(id, sns);
+  @PostMapping("/update/{userId}")
+  public String updateSNS(@PathVariable("userId") String userId,
+                          SNSUpdateRequestDto sns,
+                          HttpServletResponse response,
+                          HttpServletRequest request) {
+    // session id와 파라미터 id가 일치하면 수정
+    // 불일치하면 돌려보내기 (어디로?)
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      UserSession attribute = (UserSession) session.getAttribute(SessionConst.USER_SESSION);
+      String sessionUserId = attribute.getUserId();
+      if (sessionUserId.equals(userId)) {
+        snsService.updateSNS(sns);
+      }
+    }
+
     return "redirect:/posts";
   }
 

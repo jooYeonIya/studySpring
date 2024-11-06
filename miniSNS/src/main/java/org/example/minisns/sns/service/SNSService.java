@@ -38,8 +38,8 @@ public class SNSService {
     return snsRepository.findById(id);
   }
 
-  public SNS updateSNS(int id, SNSUpdateRequestDto sns) {
-    SNS findSns = snsRepository.findById(id).get();
+  public SNS updateSNS(SNSUpdateRequestDto sns) {
+    SNS findSns = snsRepository.findById(sns.getId()).get();
     findSns.setBody(sns.getBody());
     // 없으면 추가, 있으면 수정
     return snsRepository.save(findSns);

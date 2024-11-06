@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SNSUpdateRequestDto {
+  private int id;
   private String title;
   private String body;
 }
