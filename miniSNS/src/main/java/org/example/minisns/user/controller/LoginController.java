@@ -48,4 +48,18 @@ public class LoginController {
       return "redirect:" + redirectURI;
     }
   }
+
+  @GetMapping("/logout")
+  public String logout(HttpServletResponse response, HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      session.invalidate();
+    }
+
+    Cookie cookie = new Cookie(SessionConst.USER_COOKIE, null);
+    cookie.setMaxAge(0);
+    response.addCookie(cookie);
+
+    return "redirect:/login";
+  }
 }
