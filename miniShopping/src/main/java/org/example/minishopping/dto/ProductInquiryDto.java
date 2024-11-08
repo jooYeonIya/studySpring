@@ -12,7 +12,7 @@ import org.example.minishopping.entity.Product;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductInquiryDto {
-  private int productId;
+  private Long productId;
   private String productName;
   private int price;
 

@@ -24,7 +24,7 @@ public class ProductService {
   // 상품 정보 저장
   public ProductInquiryDto addProduct(ProductCreateDto dto) {
     if (checkUniqueProductName(dto.getProductName())) {
-      Product product = new Product(0,
+      Product product = new Product(0l,
           dto.getProductName(),
           dto.getPrice(),
           dto.getCost(),
