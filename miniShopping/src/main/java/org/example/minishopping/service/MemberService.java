@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -42,8 +43,8 @@ public class MemberService {
   }
 
   public boolean checkUniqueUserId(String userId) {
-    Member member = memberRepository.findByUserId(userId).get();
-    if (member != null) {
+    Optional<Member> optionalMember = memberRepository.findByUserId(userId);
+    if (optionalMember.isPresent()) {
       throw new NotUniqueUserIdException("동일한 user id가 존재합니다");
     }
     return true;
@@ -53,7 +54,7 @@ public class MemberService {
   public List<MemberInquiryDto> getAllMembers() {
     List<Member> all = memberRepository.findAll();
     return all.stream()
-        .map(member -> new MemberInquiryDto(member.getMemberId(), member.getMemberName(), member.getUserId()))
+        .map(MemberInquiryDto::of)
         .collect((Collectors.toList()));
   }
   // 멤버 상세 조회
