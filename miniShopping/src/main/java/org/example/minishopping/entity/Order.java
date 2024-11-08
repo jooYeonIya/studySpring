@@ -31,7 +31,7 @@ public class Order {
   private long totalPrice;
   @Enumerated(EnumType.STRING)
   private OrderStatus status;
-  private LocalDate statusDate;
+  private LocalDateTime statusDate;
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // CascadeType.ALL은 모든 상태 변화가 전달되도록 설정
   @JoinColumn(name = "delivery_id") // 양방향 관계, 연관 관계의 주인
   private Delivery delivery;
@@ -39,14 +39,14 @@ public class Order {
   private List<OrderProduct> orderProducts;
 
   // 주문 생성
-  public static Order createOrder(Member member,Delivery delivery, OrderProduct... orderProducts) {
+  public static Order createOrder(Member member, Delivery delivery, List<OrderProduct> orderProducts) {
     Order order = new Order(null,
         member,
         LocalDateTime.now(),
         0,
         0,
         OrderStatus.ORDERED,
-        LocalDate.now(),
+        LocalDateTime.now(),
         delivery,
         new ArrayList<OrderProduct>());
 
@@ -64,7 +64,7 @@ public class Order {
   public void partialOrderCancel(OrderProduct orderProduct) {
     if (this.status == OrderStatus.ORDERED | this.status == OrderStatus.PARTIALCANCELLED) {
       this.status = OrderStatus.PARTIALCANCELLED;
-      this.statusDate = LocalDate.now();
+      this.statusDate = LocalDateTime.now();
       this.totalQuantity -= orderProduct.getQuantity(); ;
       this.totalPrice -= orderProduct.getPrice() * orderProduct.getQuantity();
     }
@@ -73,7 +73,7 @@ public class Order {
   public void totalOrderCancel() {
     if (this.status == OrderStatus.ORDERED | this.status == OrderStatus.PARTIALCANCELLED) {
       this.status = OrderStatus.TOTALCANCELLED;
-      this.statusDate = LocalDate.now();
+      this.statusDate = LocalDateTime.now();
       this.totalQuantity = 0;
       this.totalPrice = 0;
     }
