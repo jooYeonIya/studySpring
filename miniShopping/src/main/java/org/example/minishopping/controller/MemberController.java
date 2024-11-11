@@ -26,4 +26,10 @@ public class MemberController {
   public List<MemberInquiryDto> getAllMembers() {
     return memberService.getAllMembers();
   }
+
+  // 멤버 상세 조회
+  @GetMapping("/get/{userId}")
+  public MemberInquiryDto getMemberByUserId(@PathVariable String userId) {
+    return memberService.getOneMember(userId);
+  }
 }

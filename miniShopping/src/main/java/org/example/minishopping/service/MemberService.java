@@ -59,8 +59,8 @@ public class MemberService {
   }
 
   // 멤버 상세 조회
-  public MemberInquiryDto getOneMember(String memberId) {
-    Optional<Member> optionalMember = memberRepository.findByUserId(memberId);
+  public MemberInquiryDto getOneMember(String userId) {
+    Optional<Member> optionalMember = memberRepository.findByUserId(userId);
     if (optionalMember.isPresent()) {
       Member member = optionalMember.get();
       return MemberInquiryDto.of(member);
