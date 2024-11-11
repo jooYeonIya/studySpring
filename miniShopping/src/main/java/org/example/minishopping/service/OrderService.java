@@ -8,6 +8,7 @@ import org.example.minishopping.entity.*;
 import org.example.minishopping.entity.status.DeliveryStatus;
 import org.example.minishopping.entity.status.OrderProductStatus;
 import org.example.minishopping.entity.status.Warehouse;
+import org.example.minishopping.exception.StockNotExistException;
 import org.example.minishopping.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +46,41 @@ public class OrderService {
     delivery.setOrder(order);
     orderRepository.save(order);
     return OrderInquiryDto.of(order);
+  }
+
+  public void cancelOrder() {
+
+  }
+
+  public void cancelOrderProduct(long orderProductId) {
+    OrderProduct orderProduct = orderProductRepository.findById(orderProductId).get();
+    Optional<Stock> optionalStock = stockRepository.findByWarehouseAndProduct(Warehouse.KR, orderProduct.getProduct());
+    if (optionalStock.isPresent()) {
+      Stock stock = optionalStock.get();
+      orderProduct.cancelOrderProduct(stock);
+      List<OrderProduct> details = orderProduct.getOrder().getOrderProducts();
+      int diff = 0;
+      for (OrderProduct detail : details) {
+        if (detail.getStatus() == OrderProductStatus.CANCELLED) { diff++; }
+      }
+      if (details.size() - diff > 1) {
+        orderProduct.getOrder().partialOrderCancel(orderProduct);
+      } else {
+        orderProduct.getOrder().totalOrderCancel();
+      }
+      Order savedOrder = orderRepository.save(orderProduct.getOrder());
+    } else {
+      throw new StockNotExistException("주문 취소 불가");
+    }
+  }
+
+  public OrderInquiryDto getOneOrderByMember(String userId) {
+    Member member = memberRepository.findByUserId(userId).get();
+    Optional<Order> byMember = orderRepository.findByMember(member);
+    if (byMember.isPresent()) {
+      Order order = byMember.get();
+      return OrderInquiryDto.of(order);
+    }
+    return null;
   }
 }

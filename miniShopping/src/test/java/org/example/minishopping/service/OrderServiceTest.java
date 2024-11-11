@@ -2,17 +2,16 @@ package org.example.minishopping.service;
 
 import org.assertj.core.api.Assertions;
 import org.example.minishopping.dto.*;
-import org.example.minishopping.entity.Member;
-import org.example.minishopping.entity.Order;
-import org.example.minishopping.entity.Product;
+import org.example.minishopping.entity.*;
+import org.example.minishopping.entity.status.OrderStatus;
 import org.example.minishopping.entity.status.Warehouse;
+import org.example.minishopping.repository.OrderRepository;
+import org.example.minishopping.repository.StockRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -29,6 +28,10 @@ class OrderServiceTest {
 
   @Autowired
   private StockService stockService;
+  @Autowired
+  private OrderRepository orderRepository;
+  @Autowired
+  private StockRepository stockRepository;
 
   @Test
   public void 주문생성테스트() {
@@ -50,5 +53,24 @@ class OrderServiceTest {
     OrderCreateDto orderCreateDto = new OrderCreateDto(member.getMemberId(), "testAdd");
     OrderProductCreateDto orderProductCreateDto = new OrderProductCreateDto(productInquiryDto.getProductId(), 100);
     orderService.createOrder(orderCreateDto, orderProductCreateDto);
+  }
+
+  @Test
+  public void 주문취소테스트() {
+    Order order = null;
+    OrderProduct orderProduct = null;
+    Stock stock = null;
+    MemberInquiryDto testid = memberService.getOneMember("testid");
+    OrderInquiryDto oneOrderByMember = orderService.getOneOrderByMember(testid.getUserId());
+    if (oneOrderByMember != null) {
+      order = orderRepository.findById(oneOrderByMember.getOrderId()).get();
+      orderProduct = order.getOrderProducts().get(0);
+      orderService.cancelOrderProduct(orderProduct.getProductOrderId());
+      stock = stockRepository.findByWarehouseAndProduct(Warehouse.KR, orderProduct.getProduct()).get();
+    }
+    Assertions.assertThat(order).isNotNull();
+    Assertions.assertThat(order.getStatus()).isEqualTo(OrderStatus.TOTALCANCELLED);
+    Assertions.assertThat(orderProduct).isNotNull();
+    Assertions.assertThat(stock.getQuantity()).isEqualTo(10000l);
   }
 }

@@ -57,7 +57,18 @@ public class MemberService {
         .map(MemberInquiryDto::of)
         .collect((Collectors.toList()));
   }
+
   // 멤버 상세 조회
+  public MemberInquiryDto getOneMember(String memberId) {
+    Optional<Member> optionalMember = memberRepository.findByUserId(memberId);
+    if (optionalMember.isPresent()) {
+      Member member = optionalMember.get();
+      return MemberInquiryDto.of(member);
+    }
+
+    return null;
+  }
+
   // 멤버 정보 수정
   // 멤버 삭제
 
