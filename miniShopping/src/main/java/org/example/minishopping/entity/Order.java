@@ -76,6 +76,7 @@ public class Order {
       this.statusDate = LocalDateTime.now();
       this.totalQuantity = 0;
       this.totalPrice = 0;
+      // 딜리버리의 상태도 업데이트 해줘야 할 듯
     }
   }
 }

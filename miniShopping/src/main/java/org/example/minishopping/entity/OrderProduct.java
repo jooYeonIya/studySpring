@@ -42,7 +42,6 @@ public class OrderProduct {
     if (order.getStatus() == OrderStatus.ORDERED || order.getStatus() == OrderStatus.PARTIALCANCELLED) {
       this.status = OrderProductStatus.CANCELLED;
       stock.increaseStock(quantity);
-      order.partialOrderCancel(this);
     } else {
       new OrderCancelException("주문 완료, 주문 취소 일 때만 취소 가능");
     }

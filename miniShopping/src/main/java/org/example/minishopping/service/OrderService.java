@@ -63,7 +63,7 @@ public class OrderService {
       for (OrderProduct detail : details) {
         if (detail.getStatus() == OrderProductStatus.CANCELLED) { diff++; }
       }
-      if (details.size() - diff > 1) {
+      if (details.size() - diff >= 1) {
         orderProduct.getOrder().partialOrderCancel(orderProduct);
       } else {
         orderProduct.getOrder().totalOrderCancel();
