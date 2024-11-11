@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.minishopping.dto.ProductCreateDto;
 import org.example.minishopping.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
   private final ProductService productService;
 
-  @GetMapping("/add")
+  @PostMapping("/add")
   public void add(ProductCreateDto dto) {
     productService.addProduct(dto);
   }
