@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Range;
 @NoArgsConstructor
 public class Item {
   private Long id;
-  @NotBlank
+  @NotBlank(message = "item의 name은 값을 입력해야합니다")
   private String name;
   @NotNull
   @Range(min=10, max=10000)
