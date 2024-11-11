@@ -29,7 +29,7 @@ public class OrderService {
   private final OrderProductRepository orderProductRepository;
   private final DeliveryRepository deliveryRepository;
 
-  public OrderInquiryDto createOrder(OrderCreateDto orderDto, OrderProductCreateDto... orderProductDtos) {
+  public OrderInquiryDto createOrder(OrderCreateDto orderDto, List<OrderProductCreateDto> orderProductDtos) {
     Member member = memberRepository.findById(orderDto.getMemberId()).get();
 
     List<OrderProduct> orderProducts = new ArrayList<>();
