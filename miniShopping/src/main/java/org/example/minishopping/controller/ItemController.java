@@ -16,6 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemController {
   @PostMapping
   public Object createItem(@Validated @RequestBody Item item, BindingResult bindingResult) {
+
+    // 위치가 중요
+    // reject한 후에 bindingResult.hasErrors() 해줄 필요 있음
+    if (item.getCost() >= item.getPrice()) {
+      bindingResult.reject("costPrice", "cot exceeds price");
+    }
+
     if (bindingResult.hasErrors()) {
       log.error("validation errors: {}", bindingResult.getAllErrors());
       return bindingResult.getAllErrors();
